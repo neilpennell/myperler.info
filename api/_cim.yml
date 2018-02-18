@@ -1,9 +1,9 @@
 version: 0.1
 stack:
-  name: cim-serverless-api # Note: Update this with your stack name
+  name: myperler-info-api # Note: Update this with your stack name
   template:
     file: cloudformation.yml
-    bucket: cim-stack-artifacts # Note: Update this with your bucket name.  Stacks are uploaded here prior to deployment.'
+    bucket: myperler.info-artifacts # Note: Update this with your bucket name.  Stacks are uploaded here prior to deployment.'
   #
   # Reference parent stacks fo included shared information like stack name.
   #
@@ -18,9 +18,11 @@ stack:
   #            More info here:  http://docs.aws.amazon.com/acm/latest/userguide/gs-acm-validate.html
   parameters:
     # The top level domain that you created in Route53.
-    TLD: 'example.com'
+    TLD: 'myperler.info'
     # The domain you wish to use for this api.
-    Domain: 'api.example.com'
+    Domain: 'api.myperler.info'
+    # what is appended to the domain default=api
+    Path: 'v1'
 
 #
 # Define stack capabilities required.
@@ -34,9 +36,9 @@ stack:
 stage:
   dev:
     stack:
-      name: cim-serverless-api-dev
+      name: myperler-info-api-dev
       parameters:
-        Domain: 'dev-api.example.com'
+        Domain: 'dev-api.myperler.info'
 
   #
   # Define global tags.

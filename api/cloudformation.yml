@@ -95,6 +95,24 @@ Resources:
       Runtime: nodejs6.10
 
   #
+  # Version 1 of our function.
+  #
+  LambdaFunctionVersion:
+    Type: AWS::Lambda::Version
+    Properties:
+      FunctionName: !Ref LambdaFunction
+
+  #
+  # 'PROD' Alias -> Version 1
+  #
+  LambdaFunctionAlias:
+    Type: AWS::Lambda::Alias
+    Properties:
+      FunctionName: !Ref LambdaFunction
+      FunctionVersion: !GetAtt LambdaFunctionVersion.$LATEST
+      Name: 'PROD'
+
+  #
   # Create the API Gateway
   #
   RestApi:
