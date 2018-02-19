@@ -11,17 +11,21 @@ api gateway that says hello world!
 
 ## tools
 
-cim.sh
+serverless
 
 
 ## procedures
 
-* npm -g install cim
-* cim create --template=serverless-api api
-* export AWS_REGION=us-east-1 
-* cim stack-up --recursive --profile=myperler.info
-* cim stack-show --recursive --profile=myperler.info
-* cim lambda-deploy --recursive --profile=myperler.info
-* cim stack-delete --recursive --profile=myperler.info
+* npm -g install serverless
+* sls create --template aws-nodejs --path attendee
+* sls create_domain
+* aws acm request-certificate --domain-name api.myperler.info --validation-method DNS
+* sls deploy
+
+
+## references
+
+* solving the CORS problem
+  * https://github.com/shekhargulati/hands-on-serverless-guide/blob/master/01-aws-lambda-serverless-framework/04-enable-cors-for-your-rest-api.md
 
 
