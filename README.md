@@ -22,6 +22,11 @@ serverless
 * aws acm request-certificate --domain-name api.myperler.info --validation-method DNS
 * sls deploy
 
+## test data
+
+* curl -X POST https://api.myperler.info/v1/attendees --data '{"name":"user 1"}'
+* curl -X POST https://api.myperler.info/v1/attendees --data '{"name":"user 2"}'
+* curl -X POST https://api.myperler.info/v1/attendees --data '{"name":"user 3"}'
 
 ## references
 
