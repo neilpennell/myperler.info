@@ -10,9 +10,19 @@ provider:
 #  endpointType: edge
   region: us-east-1
   runtime: nodejs6.10
-  memorySize: 512 # Overwrite the default memory size. Default is 1024
+  memorySize: 128 # Overwrite the default memory size. Default is 1024
   stackTags:
     Name: api.myperler.info
+  apiKeys: # List of API keys to be used by your service API Gateway REST API
+    - wui
+  usagePlan: # Optional usage plan configuration
+    quota:
+      limit: 5000
+      offset: 2
+      period: MONTH
+    throttle:
+      burstLimit: 200
+      rateLimit: 100
   environment:
     DYNAMODB_TABLE: ${self:service}-${opt:stage, self:provider.stage}
     BASE_URL: ${self:service}
@@ -34,6 +44,7 @@ functions:
       - http:
           path: ${self:provider.environment.BASE_URL}/
           method: post
+          private: true # Requires clients to add API keys values in the `x-api-key` header of their request
           cors:
             origins:
               - '*'
@@ -51,7 +62,7 @@ functions:
       - http:
           path: ${self:provider.environment.BASE_URL}/
           method: get
-          resp: json
+          private: true # Requires clients to add API keys values in the `x-api-key` header of their request
           cors:
             origins:
               - '*'
@@ -69,6 +80,7 @@ functions:
       - http:
           path: ${self:provider.environment.BASE_URL}/{id}
           method: get
+          private: true # Requires clients to add API keys values in the `x-api-key` header of their request
           cors:
             origins:
               - '*'
@@ -86,6 +98,7 @@ functions:
       - http:
           path: ${self:provider.environment.BASE_URL}/{id}
           method: put
+          private: true # Requires clients to add API keys values in the `x-api-key` header of their request
           cors:
             origins:
               - '*'
@@ -103,6 +116,7 @@ functions:
       - http:
           path: ${self:provider.environment.BASE_URL}/{id}
           method: delete
+          private: true # Requires clients to add API keys values in the `x-api-key` header of their request
           cors:
             origins:
               - '*'
@@ -116,7 +130,7 @@ functions:
 
 resources:
   Resources:
-    MeetingsTable:
+    AttendeesTable:
       Type: 'AWS::DynamoDB::Table'
       DeletionPolicy: Retain
       Properties:
@@ -144,7 +158,6 @@ custom:
     basePath: 'v1'
     stage: ${self:provider.stage}
     certificateName: 'api.myperler.info'
-    endpointType: 'edge'
     createRoute53Record: true
 
 # you can overwrite defaults here

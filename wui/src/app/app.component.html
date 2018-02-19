@@ -18,3 +18,8 @@
   </li>
 </ul>
 
+<ul>
+  <li *ngFor="let attendee of this.attendees | async">
+    {{attendee.id}}
+  </li>
+</ul>
