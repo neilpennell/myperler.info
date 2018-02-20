@@ -20,6 +20,5 @@ export class AttendeeService {
     };
 
     return this.http.get<Attendee[]>(this.attendeeURL, httpOptions);
-    // return this.http.get(this.attendeeURL, httpOptions);
   }
 }
