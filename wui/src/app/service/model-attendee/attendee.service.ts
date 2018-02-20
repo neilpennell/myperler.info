@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {environment} from "../../../environments/environment.prod";
 import {Attendee} from "./model-attendee";
+import {Observable} from "rxjs/Observable";
 
 @Injectable()
 export class AttendeeService {
@@ -10,7 +11,7 @@ export class AttendeeService {
   constructor(private http: HttpClient) {
   }
 
-  getAttendees() {
+  getAttendees(): Observable<Attendee[]> {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
@@ -18,6 +19,7 @@ export class AttendeeService {
       })
     };
 
-    return this.http.get<Attendee>(this.attendeeURL, httpOptions);
+    return this.http.get<Attendee[]>(this.attendeeURL, httpOptions);
+    // return this.http.get(this.attendeeURL, httpOptions);
   }
 }
