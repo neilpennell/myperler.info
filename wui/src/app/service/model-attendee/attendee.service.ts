@@ -4,6 +4,7 @@ import {environment} from "../../../environments/environment.prod";
 import {Attendee} from "./model-attendee";
 import {Observable} from "rxjs/Observable";
 
+
 @Injectable()
 export class AttendeeService {
   private attendeeURL = 'https://api.myperler.info/v1/attendees';
