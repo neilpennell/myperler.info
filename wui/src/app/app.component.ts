@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {AttendeeService} from "./service/model-attendee/attendee.service";
 import {Attendee} from "./service/model-attendee/model-attendee";
+import {Observable} from "rxjs/Observable";
 
 @Component({
   selector: 'app-root',
@@ -9,14 +10,15 @@ import {Attendee} from "./service/model-attendee/model-attendee";
 })
 export class AppComponent {
   title = 'myPerler.Info';
-  attendees: Attendee[];
+  attendees: Observable<Attendee[]>;
 
   constructor(private attendeeService: AttendeeService) {
   }
 
   ngOnInit() {
-    this.attendeeService.getAttendees().subscribe(data => {
-      this.attendees = data;
-    });
+    // this.attendeeService.getAttendees().subscribe(data => {
+    //   this.attendees = data;
+    // });
+    this.attendees = this.attendeeService.getAttendees();
   }
 }
