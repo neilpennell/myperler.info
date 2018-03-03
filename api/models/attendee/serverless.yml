@@ -21,8 +21,8 @@ provider:
       offset: 2
       period: MONTH
     throttle:
-      burstLimit: 200
-      rateLimit: 100
+      burstLimit: 2000
+      rateLimit: 1000
   environment:
     DYNAMODB_TABLE: ${self:service}-${opt:stage, self:provider.stage}
     BASE_URL: ${self:service}

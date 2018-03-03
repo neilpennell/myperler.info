@@ -10,10 +10,60 @@ provider:
     Name: users-api.myperler.info
   tags:
     Name: api.myperler.info
+  apiKeys: # List of API keys to be used by your service API Gateway REST API
+    - wui
+  usagePlan: # Optional usage plan configuration
+    quota:
+      limit: 5000
+      offset: 2
+      period: MONTH
+    throttle:
+      burstLimit: 2000
+      rateLimit: 1000
   environment:
-    DYNAMODB_TABLE: Users-${opt:stage, self:provider.stage}
+    DYNAMODB_TABLE: users-${opt:stage, self:provider.stage}
     BASE_URL: ${self:service}
     DOMAIN: "myperler.info"
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+      Resource: "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:provider.environment.DYNAMODB_TABLE}"
+
+functions:
+  create:
+    handler: create.create
+    events:
+      - http:
+          path: ${self:provider.environment.BASE_URL}/
+          method: post
+          private: true # Requires clients to add API keys values in the `x-api-key` header of their request
+          cors:
+            origins:
+              - '*'
+            headers:
+              - X-Amz-User-Agent
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+plugins:
+  - serverless-domain-manager
+  - serverless-sam
+
+custom:
+  customDomain:
+    domainName: 'api.myperler.info'
+    basePath: 'v1'
+    stage: ${self:provider.stage}
+    certificateName: 'api.myperler.info'
+    createRoute53Record: true
 
 resources:
   Resources:

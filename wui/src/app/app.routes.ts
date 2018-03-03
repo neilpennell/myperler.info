@@ -44,7 +44,7 @@ const secureHomeRoutes: Routes = [
   },
   {
     path: 'securehome', component: SecureHomeComponent, children: [
-    // {path: 'logout', component: LogoutComponent},
+    {path: 'logout', component: LogoutComponent},
     // {path: 'jwttokens', component: JwtComponent},
     // {path: 'myprofile', component: MyProfileComponent},
     // {path: 'useractivity', component: UseractivityComponent},
