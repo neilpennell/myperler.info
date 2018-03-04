@@ -12,6 +12,6 @@ node_modules/.deploy: package.json
 	touch node_modules/.deploy
 	touch serverless.yml
 
-.serverless/.deploy: serverless.yml
+.serverless/.deploy: serverless.yml create.js
 	sls deploy --aws-s3-accelerate
 	touch .serverless/.deploy

@@ -1,11 +1,34 @@
 import {Injectable} from "@angular/core";
 import {CognitoUtil} from "./cognito.service";
 import {environment} from "../../environments/environment";
-
-// import {Stuff} from "../secure/useractivity/useractivity.component";
 import {Stuff} from '../shared/UserLogging';
 import * as AWS from "aws-sdk/global";
 import * as DynamoDB from "aws-sdk/clients/dynamodb";
+import {HttpClient, HttpErrorResponse, HttpHeaders} from "@angular/common/http";
+import {Observable} from 'rxjs/Observable';
+import {ErrorObservable} from 'rxjs/observable/ErrorObservable';
+import {catchError} from 'rxjs/operators';
+
+export class UserTrail {
+  id: string;
+  userId: string;
+  activityDate: string;
+  type: string;
+
+  createdAt: number;
+  updatedAt: number;
+
+  constructor(data: any) {
+    this.id = data.id;
+    this.userId = data.userId;
+    this.activityDate = data.activityDate;
+    this.type = data.type;
+
+    this.createdAt = data.createdAt;
+    this.updatedAt = data.updatedAt;
+  }
+}
+
 
 /**
  * Created by Vladimir Budilov
@@ -14,81 +37,90 @@ import * as DynamoDB from "aws-sdk/clients/dynamodb";
 @Injectable()
 export class DynamoDBService {
 
-    constructor(public cognitoUtil: CognitoUtil) {
-        console.log("DynamoDBService: constructor");
+  constructor(public cognitoUtil: CognitoUtil, private http: HttpClient) {
+    console.log("DynamoDBService: constructor");
+  }
+
+  getAWS() {
+    return AWS;
+  }
+
+  getLogEntries(mapArray: Array<Stuff>) {
+    console.log("DynamoDBService: reading from DDB with creds - " + AWS.config.credentials);
+    let params = {
+      TableName: environment.ddbTableName,
+      KeyConditionExpression: "userId = :userId",
+      ExpressionAttributeValues: {
+        ":userId": this.cognitoUtil.getCognitoIdentity()
+      }
+    };
+
+    let clientParams: any = {};
+    if (environment.dynamodb_endpoint) {
+      clientParams.endpoint = environment.dynamodb_endpoint;
     }
+    let docClient = new DynamoDB.DocumentClient(clientParams);
+    docClient.query(params, onQuery);
 
-    getAWS() {
-        return AWS;
-    }
-
-    getLogEntries(mapArray: Array<Stuff>) {
-        console.log("DynamoDBService: reading from DDB with creds - " + AWS.config.credentials);
-        var params = {
-            TableName: environment.ddbTableName,
-            KeyConditionExpression: "userId = :userId",
-            ExpressionAttributeValues: {
-                ":userId": this.cognitoUtil.getCognitoIdentity()
-            }
-        };
-
-        var clientParams:any = {};
-        if (environment.dynamodb_endpoint) {
-            clientParams.endpoint = environment.dynamodb_endpoint;
-        }
-        var docClient = new DynamoDB.DocumentClient(clientParams);
-        docClient.query(params, onQuery);
-
-        function onQuery(err, data) {
-            if (err) {
-                console.error("DynamoDBService: Unable to query the table. Error JSON:", JSON.stringify(err, null, 2));
-            } else {
-                // print all the movies
-                console.log("DynamoDBService: Query succeeded.");
-                data.Items.forEach(function (logitem) {
-                    mapArray.push({type: logitem.type, date: logitem.activityDate});
-                });
-            }
-        }
-    }
-
-    writeLogEntry(type: string) {
-        try {
-            let date = new Date().toString();
-            console.log("DynamoDBService: Writing log entry. Type:" + type + " ID: " + this.cognitoUtil.getCognitoIdentity() + " Date: " + date);
-            this.write(this.cognitoUtil.getCognitoIdentity(), date, type);
-        } catch (exc) {
-            console.log("DynamoDBService: Couldn't write to DDB");
-        }
-
-    }
-
-    write(data: string, date: string, type: string): void {
-        console.log("DynamoDBService: writing " + type + " entry");
-
-        let clientParams:any = {
-            params: {TableName: environment.ddbTableName}
-        };
-        if (environment.dynamodb_endpoint) {
-            clientParams.endpoint = environment.dynamodb_endpoint;
-        }
-        var DDB = new DynamoDB(clientParams);
-
-        // Write the item to the table
-        var itemParams =
-            {
-                TableName: environment.ddbTableName,
-                Item: {
-                    userId: {S: data},
-                    activityDate: {S: date},
-                    type: {S: type}
-                }
-            };
-        DDB.putItem(itemParams, function (result) {
-            console.log("DynamoDBService: wrote entry: " + JSON.stringify(result));
+    function onQuery(err, data) {
+      if (err) {
+        console.error("DynamoDBService: Unable to query the table. Error JSON:", JSON.stringify(err, null, 2));
+      } else {
+        // print all the movies
+        console.log("DynamoDBService: Query succeeded.");
+        data.Items.forEach(function (logitem) {
+          mapArray.push({type: logitem.type, date: logitem.activityDate});
         });
+      }
+    }
+  }
+
+  writeLogEntry(type: string) {
+    try {
+      let date = new Date().toString();
+      console.log("DynamoDBService: Writing log entry. Type:" + type + " ID: " + this.cognitoUtil.getCognitoIdentity() + " Date: " + date);
+      this.writeAPI(this.cognitoUtil.getCognitoIdentity(), date, type).subscribe(data => {
+        console.log("DynamoDBService: wrote entry: " + JSON.stringify(data))
+      });
+    } catch (exc) {
+      console.log("DynamoDBService: Couldn't write to DDB");
     }
 
+  }
+
+
+  writeAPI(data: string, date: string, _type: string): Observable<UserTrail> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'X-Api-Key': environment.apiKey_usertrail
+      })
+    };
+    const url = 'https://nuniqwivxa.execute-api.us-east-1.amazonaws.com/dev/myperlerUsers';
+    let item: UserTrail;
+    item = new UserTrail({userId: data, activityDate: date, type: _type});
+    return this.http.post(environment.userTrail_endpoint, item, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      );
+
+  }
+
+  private handleError(error: HttpErrorResponse) {
+    if (error.error instanceof ErrorEvent) {
+      // A client-side or network error occurred. Handle it accordingly.
+      console.error('An error occurred:', error.error.message);
+    } else {
+      // The backend returned an unsuccessful response code.
+      // The response body may contain clues as to what went wrong,
+      console.error(
+        `Backend returned code ${error.status}, ` +
+        `body was: ${error.error}`);
+    }
+    // return an ErrorObservable with a user-facing error message
+    return new ErrorObservable(
+      'Something bad happened; please try again later.');
+  };
 }
 
 

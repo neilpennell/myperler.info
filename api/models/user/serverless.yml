@@ -11,7 +11,7 @@ provider:
   tags:
     Name: api.myperler.info
   apiKeys: # List of API keys to be used by your service API Gateway REST API
-    - wui
+    - ${self:service}
   usagePlan: # Optional usage plan configuration
     quota:
       limit: 5000
@@ -21,7 +21,7 @@ provider:
       burstLimit: 2000
       rateLimit: 1000
   environment:
-    DYNAMODB_TABLE: users-${opt:stage, self:provider.stage}
+    DYNAMODB_TABLE: usersTrail-${opt:stage, self:provider.stage}
     BASE_URL: ${self:service}
     DOMAIN: "myperler.info"
   iamRoleStatements:
@@ -54,16 +54,16 @@ functions:
               - X-Api-Key
               - X-Amz-Security-Token
 plugins:
-  - serverless-domain-manager
   - serverless-sam
+#  - serverless-domain-manager
 
-custom:
-  customDomain:
-    domainName: 'api.myperler.info'
-    basePath: 'v1'
-    stage: ${self:provider.stage}
-    certificateName: 'api.myperler.info'
-    createRoute53Record: true
+#custom:
+#  customDomain:
+#    domainName: 'api.myperler.info'
+#    basePath: 'v1-user'
+#    stage: ${self:provider.stage}
+#    certificateName: 'api.myperler.info'
+#    createRoute53Record: true
 
 resources:
   Resources:
@@ -187,7 +187,8 @@ resources:
                   Action:
                     - "mobileanalytics:PutEvents"
                     - "cognito-sync:*"
-                  Resource: "*"
+                  Resource:
+                    - "*"
 
     # Create a role for authorized acces to AWS resources. Control what your user can access. This example only allows Lambda invokation
     # Only allows users in the previously created Identity Pool
