@@ -3,37 +3,39 @@ import {Component, OnInit} from "@angular/core";
 declare let AWS: any;
 declare let AWSCognito: any;
 
-@Component({
-    selector: 'awscognito-angular2-app',
-    template: '<p>Hello and welcome!"</p>'
-})
-export class AboutComponent {
-
-}
 
 @Component({
-    selector: 'awscognito-angular2-app',
-    templateUrl: './landinghome.html'
+  templateUrl: './landinghome.html'
 })
 export class HomeLandingComponent {
-    constructor() {
-        console.log("HomeLandingComponent constructor");
-    }
+  constructor() {
+    console.log("HomeLandingComponent constructor");
+  }
 }
 
 @Component({
-    selector: 'awscognito-angular2-app',
-    templateUrl: './home.html'
+  templateUrl: './home.html',
+  styles: [`
+    mat-card {
+      max-width: 80%;
+      margin: 2em auto;
+      text-align: center;
+    }
+
+    mat-toolbar-row {
+      justify-content: space-between;
+    }
+  `]
 })
 export class HomeComponent implements OnInit {
 
-    constructor() {
-        console.log("HomeComponent constructor");
-    }
+  constructor() {
+    console.log("HomeComponent constructor");
+  }
 
-    ngOnInit() {
+  ngOnInit() {
 
-    }
+  }
 }
 
 

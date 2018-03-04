@@ -1,27 +1,34 @@
 import {Component} from '@angular/core';
-// import {AttendeeService} from "./service/model-attendee/attendee.service";
 import {Attendee} from "./service/model-attendee/model-attendee";
 import {Observable} from "rxjs/Observable";
 import {AwsUtil} from "./service/aws.service";
 import {UserLoginService} from "./service/user-login.service";
 import {CognitoUtil} from "./service/cognito.service";
-import * as AWS from 'aws-sdk';
+import { Title } from '@angular/platform-browser';
 
-// templateUrl: './app.component.html',
 
 @Component({
   selector: 'app-root',
-  template: '<router-outlet></router-outlet>',
-  styleUrls: ['./app.component.css']
+  template: `
+    <div>
+      <router-outlet></router-outlet>
+    </div>`,
+  styles: [`
+    body {
+      margin: 0;
+      font-family: Roboto, sans-serif;
+    }
+  `]
 })
 export class AppComponent {
-  title = 'myPerler.Info';
-  attendees: Observable<Attendee[]>;
+  titleTxt = 'myPerler.Info';
+  // attendees: Observable<Attendee[]>;
 
   constructor(
     public awsUtil: AwsUtil,
     public userService: UserLoginService,
-    public cognito: CognitoUtil) {
+    public cognito: CognitoUtil,
+    private title: Title) {
     console.log(`AppComponent: constructor`);
   }
 
@@ -30,6 +37,7 @@ export class AppComponent {
     //   this.attendees = data;
     // });
     // this.attendees = this.attendeeService.getAttendees();
+    this.title.setTitle(this.titleTxt);
     console.log(`AppComponent: Checking if the user is already authenticated`);
     this.userService.isAuthenticated(this);
   }

@@ -1,42 +1,96 @@
-<form class="form-signin" method="POST" action="#" role="form">
-    <div class="form-group">
-        <h2>Login</h2>
-    </div>
-    <div *ngIf="errorMessage!=null" class="alert alert-danger">
-        {{ errorMessage }}
-    </div>
-    <div *ngIf="!mfaStep">
-        <div class="form-group">
-            <label class="control-label" for="signupEmail">Email</label>
-            <input id="signupEmail" required type="email" maxlength="100" class="form-control" [(ngModel)]="email"
-                   [ngModelOptions]="{standalone: true}">
-        </div>
+<mat-card class="example-card">
+  <mat-card-header>
+    <mat-card-title>Login</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
 
-        <div class="form-group">
-            <label class="control-label" for="signupPassword">Password</label>
-            <input id="signupPassword" required type="password" maxlength="25" class="form-control"
-                   length="40" [(ngModel)]="password" [ngModelOptions]="{standalone: true}">
-        </div>
-        <div class="form-group">
-            <button (click)="onLogin()" id="signupSubmit" type="submit" class="btn btn-info btn-block">
-                Login
-            </button>
-        </div>
+    <form class="container-signin" method="POST" action="#" role="form">
+      <mat-form-field>
+        <input matInput placeholder="Email" [formControl]="emailFormControl">
+        <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+          Please enter a valid email address
+        </mat-error>
+        <mat-error *ngIf="emailFormControl.hasError('required')">
+          Email is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
 
-        <hr>
-        <p>
-            <a [routerLink]="['/home/register']"> <i class="fa fa-fw fa-group"></i> Register</a>
-            <a [routerLink]="['/home/forgotPassword']"> <i class="fa fa-fw fa-group"></i> Forgot Password?</a><br/>
-            <a [routerLink]="['/home/resendCode']"> <i class="fa fa-fw fa-group"></i> Resend Confirmation Code</a>
-        </p>
+      <mat-form-field>
+        <input matInput placeholder="Enter your password" [formControl]="passwordFormControl" [type]="hidePassword ? 'password' : 'text'">
+        <mat-icon matSuffix (click)="hidePassword = !hidePassword">{{hidePassword ? 'visibility' : 'visibility_off'}}</mat-icon>
+        <mat-error *ngIf="passwordFormControl.hasError('required')">
+          Password is <strong>required</strong>
+        </mat-error>
+        <mat-error *ngIf="passwordFormControl.hasError('minLength')">
+          Password must be at least <strong>8</strong> characters
+        </mat-error>
+      </mat-form-field>
 
-    </div>
 
-    <div class="form-group" *ngIf="mfaStep">
-        <awscognito-mfa [destination]="mfaData.destination"
-                        [onSubmit]="mfaData.callback"></awscognito-mfa>
+      <mat-form-field *ngIf="mfaStep">
+        <awscognito-mfa
+          [destination]="mfaData.destination"
+          [onSubmit]="mfaData.callback">
+        </awscognito-mfa>
         <hr>
         <a (click)="cancelMFA()" href="">Cancel</a>
-    </div>
-</form>
+      </mat-form-field>
 
+    </form>
+
+    <mat-spinner [style.display]="showSpinner ? 'block' : 'none'"></mat-spinner>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-raised-button (click)="onLogin()" color="primary" type="submit">Login</button>
+    <mat-divider></mat-divider>
+    <p>
+      <a [routerLink]="['/home/register']"> <i class="fa fa-fw fa-group"></i> Register</a>
+      <a [routerLink]="['/home/forgotPassword']"> <i class="fa fa-fw fa-group"></i> Forgot Password?</a><br/>
+      <a [routerLink]="['/home/resendCode']"> <i class="fa fa-fw fa-group"></i> Resend Confirmation Code</a>
+    </p>
+  </mat-card-actions>
+</mat-card>
+
+<!--
+<form class="form-signin" method="POST" action="#" role="form">
+  <div class="form-group">
+    <h2>Login</h2>
+  </div>
+  <div *ngIf="errorMessage!=null" class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
+  <div *ngIf="!mfaStep">
+    <div class="form-group">
+      <label class="control-label" for="signupEmail">Email</label>
+      <input id="signupEmail" required type="email" maxlength="100" class="form-control" [(ngModel)]="email"
+             [ngModelOptions]="{standalone: true}">
+    </div>
+
+    <div class="form-group">
+      <label class="control-label" for="signupPassword">Password</label>
+      <input id="signupPassword" required type="password" maxlength="25" class="form-control"
+             length="40" [(ngModel)]="password" [ngModelOptions]="{standalone: true}">
+    </div>
+    <div class="form-group">
+      <button (click)="onLogin()" id="signupSubmit" type="submit" class="btn btn-info btn-block">
+        Login
+      </button>
+    </div>
+
+    <hr>
+    <p>
+      <a [routerLink]="['/home/register']"> <i class="fa fa-fw fa-group"></i> Register</a>
+      <a [routerLink]="['/home/forgotPassword']"> <i class="fa fa-fw fa-group"></i> Forgot Password?</a><br/>
+      <a [routerLink]="['/home/resendCode']"> <i class="fa fa-fw fa-group"></i> Resend Confirmation Code</a>
+    </p>
+
+  </div>
+
+  <div class="form-group" *ngIf="mfaStep">
+    <awscognito-mfa [destination]="mfaData.destination"
+                    [onSubmit]="mfaData.callback"></awscognito-mfa>
+    <hr>
+    <a (click)="cancelMFA()" href="">Cancel</a>
+  </div>
+</form>
+-->
