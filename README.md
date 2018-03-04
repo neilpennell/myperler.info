@@ -34,3 +34,6 @@ serverless
   * https://github.com/shekhargulati/hands-on-serverless-guide/blob/master/01-aws-lambda-serverless-framework/04-enable-cors-for-your-rest-api.md
 
 
+## TODO
+
+* refactor ddb.service.ts
