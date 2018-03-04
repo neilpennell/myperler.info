@@ -1,9 +1,7 @@
 import {Injectable} from "@angular/core";
 import {CognitoUtil} from "./cognito.service";
 import {environment} from "../../environments/environment";
-import {Stuff} from '../shared/UserLogging';
 import * as AWS from "aws-sdk/global";
-import * as DynamoDB from "aws-sdk/clients/dynamodb";
 import {HttpClient, HttpErrorResponse, HttpHeaders} from "@angular/common/http";
 import {Observable} from 'rxjs/Observable';
 import {ErrorObservable} from 'rxjs/observable/ErrorObservable';
@@ -43,36 +41,6 @@ export class DynamoDBService {
 
   getAWS() {
     return AWS;
-  }
-
-  getLogEntries(mapArray: Array<Stuff>) {
-    console.log("DynamoDBService: reading from DDB with creds - " + AWS.config.credentials);
-    let params = {
-      TableName: environment.ddbTableName,
-      KeyConditionExpression: "userId = :userId",
-      ExpressionAttributeValues: {
-        ":userId": this.cognitoUtil.getCognitoIdentity()
-      }
-    };
-
-    let clientParams: any = {};
-    if (environment.dynamodb_endpoint) {
-      clientParams.endpoint = environment.dynamodb_endpoint;
-    }
-    let docClient = new DynamoDB.DocumentClient(clientParams);
-    docClient.query(params, onQuery);
-
-    function onQuery(err, data) {
-      if (err) {
-        console.error("DynamoDBService: Unable to query the table. Error JSON:", JSON.stringify(err, null, 2));
-      } else {
-        // print all the movies
-        console.log("DynamoDBService: Query succeeded.");
-        data.Items.forEach(function (logitem) {
-          mapArray.push({type: logitem.type, date: logitem.activityDate});
-        });
-      }
-    }
   }
 
   writeLogEntry(type: string) {
@@ -115,7 +83,8 @@ export class DynamoDBService {
       // The response body may contain clues as to what went wrong,
       console.error(
         `Backend returned code ${error.status}, ` +
-        `body was: ${error.error}`);
+        `body was: ${error.error}`
+      );
     }
     // return an ErrorObservable with a user-facing error message
     return new ErrorObservable(
