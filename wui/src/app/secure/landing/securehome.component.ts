@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from "@angular/core";
+import {Component, OnInit} from "@angular/core";
 import {Router} from "@angular/router";
 import {LoggedInCallback} from "../../service/cognito.service";
 import {UserLoginService} from "../../service/user-login.service";
@@ -9,10 +9,7 @@ import {UserLoginService} from "../../service/user-login.service";
   templateUrl: './secureHome.html',
   styleUrls: ['./secureHome.css']
 })
-export class SecureHomeComponent implements OnInit, OnDestroy, LoggedInCallback {
-
-  shouldRun = true;
-  events = [];
+export class SecureHomeComponent implements OnInit, LoggedInCallback {
 
   constructor(public router: Router,
               public userService: UserLoginService,) {
@@ -21,9 +18,6 @@ export class SecureHomeComponent implements OnInit, OnDestroy, LoggedInCallback 
   }
 
   ngOnInit() {
-  }
-
-  ngOnDestroy(): void {
   }
 
   isLoggedIn(message: string, isLoggedIn: boolean) {
