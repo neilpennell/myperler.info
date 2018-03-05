@@ -1,5 +1,6 @@
 import {HttpClientModule} from '@angular/common/http';
 import {NgModule} from '@angular/core';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import {BrowserModule} from '@angular/platform-browser';
 import {AppComponent} from './app.component';
@@ -23,9 +24,7 @@ import {UserParametersService} from './service/user-parameters.service';
 import {UserRegistrationService} from './service/user-registration.service';
 
 import {CustomMaterialModule} from "./shared/custom-material/custom-material.module";
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-
-
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -48,12 +47,14 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
   imports: [
     BrowserModule,
     CustomMaterialModule,
+    BrowserAnimationsModule,
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
     routing
   ],
-  providers: [AttendeeService,
+  providers: [
+    AttendeeService,
     CognitoUtil,
     AwsUtil,
     DynamoDBService,
