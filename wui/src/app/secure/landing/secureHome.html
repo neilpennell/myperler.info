@@ -1,16 +1,16 @@
-
-
-<div >
-  <mat-toolbar color="primary" class="example-toolbar">
-    <button mat-icon-button (click)="snav.toggle()"><mat-icon>menu</mat-icon></button>
-    <h1 class="example-app-name">myPerler.Info</h1>
+<div>
+  <mat-toolbar color="primary">
+    <button mat-icon-button (click)="snav.toggle()">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <h1>myPerler.Info</h1>
     <mat-menu x-position="before">
     </mat-menu>
   </mat-toolbar>
 
-  <mat-sidenav-container class="example-sidenav-container"
-                         [style.marginTop.px]=0>
-    <mat-sidenav #snav mode="side"
+  <mat-sidenav-container [style.marginTop.px]=0>
+    <mat-sidenav #snav
+                 mode="side"
                  [fixedInViewport]="true" fixedTopGap="56">
       <mat-nav-list>
         <button mat-menu-item><a [routerLink]="['/securehome']">Home</a></button>
