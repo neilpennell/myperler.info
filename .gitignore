@@ -10,7 +10,7 @@
 **/jspm_packages
 **/src/bower_components
 **/public/bower_components
-**/package-lock.json
+# **/package-lock.json
 
 # IDEs and editors
 **/.idea
@@ -38,8 +38,8 @@ Thumbs.db
 !.elasticbeanstalk/*.global.yml
 
 # Build Artifacts
-upload.zip
-resetConfig.sh
+**/upload.zip
+**/resetConfig.sh
 
 # Generated artifacts
 **/src/environments/environment.prod.ts

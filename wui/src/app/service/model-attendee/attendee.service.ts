@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {environment} from "../../../environments/environment.prod";
+import {environment} from "../../../environments/environment";
 import {Attendee} from "./model-attendee";
 import {Observable} from "rxjs/Observable";
 
@@ -16,7 +16,7 @@ export class AttendeeService {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
-        'X-Api-Key': environment.apiKey
+        'X-Api-Key': environment.apiKey_attendees
       })
     };
 

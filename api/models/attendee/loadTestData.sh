@@ -1,7 +1,7 @@
 #!/bin/sh
 
-BASE_URL=https://api.myperler.info/v1/attendees
-API_KEY='--header x-api-key:I2jxi19Olf3l9JyVMamk32BZb9ZGuLke7iClEnSr'
+BASE_URL=https://api.myperler.info/attendees-v1/
+API_KEY='--header x-api-key:gJV8GFyXAz1oqgAHyFWMTagyVyFVWYF7tAHDbkAi'
 
 echo "Load data"
 curl -X POST $BASE_URL --data '{"name":"user 1"}' $API_KEY

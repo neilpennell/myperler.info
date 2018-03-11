@@ -20,33 +20,26 @@
 </div>
 -->
 
-<!--
-<mat-grid-tile [style.background]="{{bgClass}}">
-    <div class="col col-xs-3">
-      <i class="fa {{icon}} fa-5x"></i>
-    </div>
-    <div class="col col-xs-9 text-right">
-      <div class="d-block huge">{{count}}</div>
-      <div class="d-block">{{label}}</div>
-    </div>
-</mat-grid-tile>
--->
+<div [class.mat-elevation-z2]="!isActive" [class.mat-elevation-z8]="isActive">
+  <mat-card class="bg-{{bgClass}} mat-card text-white">
+    <mat-card-content>
+      <div>
+        <div>
+          <i class="fa {{icon}} fa-2x"></i> <span class="mat-display-1">{{count}}</span>
+        </div>
+        <div>{{label}}</div>
+      </div>
+    </mat-card-content>
 
-<!--<mat-card style="background-color: bg-{{bgClass}}">-->
-<mat-card class="bg-{{bgClass}} mat-card text-white">
-  <mat-card-header>
-    <div class="col col-xs-3">
-      <i class="fa {{icon}} fa-5x"></i>
-    </div>
-  </mat-card-header>
+    <mat-card-footer>
+      <div class="bg-light text-dark">
+        <span>View Details {{data}}</span>
+        <a href="javascript:void(0)" class="float-right card-inverse">
+          <span><i class="fa fa-arrow-circle-right"></i></span>
+        </a>
+      </div>
 
+    </mat-card-footer>
 
-  <mat-card-content>
-    <div>
-      <div >{{count}}</div>
-      <div >{{label}}</div>
-    </div>
-  </mat-card-content>
-
-</mat-card>
-
+  </mat-card>
+</div>

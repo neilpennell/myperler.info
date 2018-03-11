@@ -1,11 +1,11 @@
 <div>
 
   <mat-card id="stats">
-    <mat-card-title>Stats</mat-card-title>
+    <!--<mat-card-title>Stats</mat-card-title>-->
     <mat-card-content class="demo-basic-list">
-      <mat-grid-list cols="3" [rowHeight]="120">
+      <mat-grid-list cols="3" [rowHeight]="130">
         <mat-grid-tile>
-          <app-stat [bgClass]="'primary'" [icon]="'fa-comments'" [count]="26" [label]="'Meetings'"></app-stat>
+          <app-stat [bgClass]="'primary'" [icon]="'fa-comments'" [count]="26" [label]="'Meetings'" [data]="&nbsp; &nbsp;"></app-stat>
         </mat-grid-tile>
         <mat-grid-tile>
           <app-stat [bgClass]="'warning'" [icon]="'fa-tasks'" [count]="12" [label]="'Actions Items'"></app-stat>
