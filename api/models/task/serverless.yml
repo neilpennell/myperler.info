@@ -1,0 +1,167 @@
+
+service: tasks
+
+# You can pin your service to only deploy with a specific Serverless version
+# Check out our docs for more details
+# frameworkVersion: "=X.X.X"
+
+provider:
+  name: aws
+#  endpointType: edge
+  region: us-east-1
+  runtime: nodejs6.10
+  memorySize: 128 # Overwrite the default memory size. Default is 1024
+  stackTags:
+    Name: api.myperler.info
+  apiKeys: # List of API keys to be used by your service API Gateway REST API
+    - 'wui-${self:service}'
+  usagePlan: # Optional usage plan configuration
+    quota:
+      limit: 5000
+      offset: 2
+      period: MONTH
+    throttle:
+      burstLimit: 2000
+      rateLimit: 1000
+  environment:
+    VERSION: 'v1'
+    DYNAMODB_TABLE: ${self:service}-${opt:stage, self:provider.stage}
+    BASE_URL: ${self:service}
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+      Resource: "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:provider.environment.DYNAMODB_TABLE}"
+
+functions:
+  create:
+    handler: create.create
+    events:
+      - http:
+          path: ${self:provider.environment.BASE_URL}/
+          method: post
+          private: true # Requires clients to add API keys values in the `x-api-key` header of their request
+          cors:
+            origins:
+              - '*'
+            headers:
+              - X-Amz-User-Agent
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+
+  list:
+    handler: list.list
+    events:
+      - http:
+          path: ${self:provider.environment.BASE_URL}/
+          method: get
+          private: true # Requires clients to add API keys values in the `x-api-key` header of their request
+          cors:
+            origins:
+              - '*'
+            headers:
+              - X-Amz-User-Agent
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+
+  get:
+    handler: get.get
+    events:
+      - http:
+          path: ${self:provider.environment.BASE_URL}/{id}
+          method: get
+          private: true # Requires clients to add API keys values in the `x-api-key` header of their request
+          cors:
+            origins:
+              - '*'
+            headers:
+              - X-Amz-User-Agent
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+
+  update:
+    handler: update.update
+    events:
+      - http:
+          path: ${self:provider.environment.BASE_URL}/{id}
+          method: put
+          private: true # Requires clients to add API keys values in the `x-api-key` header of their request
+          cors:
+            origins:
+              - '*'
+            headers:
+              - X-Amz-User-Agent
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+
+  delete:
+    handler: delete.delete
+    events:
+      - http:
+          path: ${self:provider.environment.BASE_URL}/{id}
+          method: delete
+          private: true # Requires clients to add API keys values in the `x-api-key` header of their request
+          cors:
+            origins:
+              - '*'
+            headers:
+              - X-Amz-User-Agent
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+
+resources:
+  Resources:
+    MeetingsTable:
+      Type: 'AWS::DynamoDB::Table'
+      DeletionPolicy: Retain
+      Properties:
+        AttributeDefinitions:
+          -
+            AttributeName: id
+            AttributeType: S
+        KeySchema:
+          -
+            AttributeName: id
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        TableName: ${self:provider.environment.DYNAMODB_TABLE}
+
+
+plugins:
+  - serverless-domain-manager
+  - serverless-sam
+
+custom:
+  customDomain:
+    domainName: 'api.myperler.info'
+    basePath: '${self:service}-${self:provider.environment.VERSION}'
+    stage: ${self:provider.stage}
+    certificateName: 'api.myperler.info'
+    createRoute53Record: true
+
+# you can overwrite defaults here
+#  stage: dev
+#  region: us-east-1
+
