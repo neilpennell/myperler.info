@@ -1,6 +1,6 @@
 #!/bin/sh
 
-BASE_URL=https://api.myperler.info/attendees-v1/
+BASE_URL=https://api.myperler.info/attendees-v1/attendees
 API_KEY='--header x-api-key:gJV8GFyXAz1oqgAHyFWMTagyVyFVWYF7tAHDbkAi'
 
 echo "Load data"

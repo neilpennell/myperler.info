@@ -1,7 +1,7 @@
 #!/bin/sh
 
-BASE_URL=https://api.myperler.info/meetings-v1/tasks
-API_KEY='--header x-api-key:ljOnBxNfWY2c7zz1VNS7R9Gj604K8bIC2AuiizDf'
+BASE_URL=https://api.myperler.info/tasks-v1/tasks
+API_KEY='--header x-api-key:sz5LN9aL9Z3Qqq9aDYUCX4EVB3t0pEgv1UWeGaUl'
 
 echo "Load data"
 D=`date +'%s'`
