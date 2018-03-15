@@ -1,5 +1,5 @@
 {
-  "name": "attendees",
+  "name": "meetings",
   "version": "1.0.0",
   "author": "Neil Pennell",
   "description": "Serverless CRUD service exposing a REST HTTP interface",

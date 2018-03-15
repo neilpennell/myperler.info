@@ -1,0 +1,45 @@
+<!--
+<div class="card text-white bg-{{bgClass}}">
+    <div class="card-header">
+        <div class="row">
+            <div class="col col-xs-3">
+                <i class="fa {{icon}} fa-5x"></i>
+            </div>
+            <div class="col col-xs-9 text-right">
+                <div class="d-block huge">{{count}}</div>
+                <div class="d-block">{{label}}</div>
+            </div>
+        </div>
+    </div>
+    <div class="card-footer bg-light text-dark">
+        <span class="float-left">View Details {{data}}</span>
+        <a href="javascript:void(0)" class="float-right card-inverse">
+            <span ><i class="fa fa-arrow-circle-right"></i></span>
+        </a>
+    </div>
+</div>
+-->
+
+<div [class.mat-elevation-z2]="!isActive" [class.mat-elevation-z8]="isActive">
+  <mat-card class="bg-{{bgClass}} mat-card text-white">
+    <mat-card-content>
+      <div>
+        <div>
+          <i class="fa {{icon}} fa-2x"></i> <span class="mat-display-1">{{count}}</span>
+        </div>
+        <div>{{label}}</div>
+      </div>
+    </mat-card-content>
+
+    <mat-card-footer>
+      <div class="bg-light text-dark">
+        <span>View Details {{data}}</span>
+        <a href="javascript:void(0)" class="float-right card-inverse">
+          <span><i class="fa fa-arrow-circle-right"></i></span>
+        </a>
+      </div>
+
+    </mat-card-footer>
+
+  </mat-card>
+</div>

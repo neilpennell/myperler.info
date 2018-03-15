@@ -8,6 +8,7 @@ import {RegisterComponent} from './public/auth/register/registration.component';
 import {ResendCodeComponent} from './public/auth/resend/resendCode.component';
 import {HomeComponent, HomeLandingComponent} from './public/home.component';
 import {SecureHomeComponent} from './secure/landing/securehome.component';
+import {DashboardComponent} from "./secure/main-dashboard/dashboard/dashboard.component";
 
 const homeRoutes: Routes = [
   {
@@ -44,7 +45,7 @@ const secureHomeRoutes: Routes = [
       // {path: 'jwttokens', component: JwtComponent},
       // {path: 'myprofile', component: MyProfileComponent},
       // {path: 'useractivity', component: UseractivityComponent},
-      // {path: '', component: MyProfileComponent}
+      {path: '', component: DashboardComponent}
     ]
   }
 ];

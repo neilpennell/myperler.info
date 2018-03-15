@@ -23,8 +23,10 @@ import {UserLoginService} from './service/user-login.service';
 import {UserParametersService} from './service/user-parameters.service';
 import {UserRegistrationService} from './service/user-registration.service';
 
-import {CustomMaterialModule} from "./shared/custom-material/custom-material.module";
+import {CustomMaterialModule} from './shared/custom-material/custom-material.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {DashboardComponent} from './secure/main-dashboard/dashboard/dashboard.component';
+import {StatModule} from './secure/stat/stat.module';
 
 @NgModule({
   declarations: [
@@ -42,7 +44,9 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     SecureHomeComponent,
 
 
-    AppComponent
+    AppComponent,
+
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
@@ -51,6 +55,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    StatModule,
     routing
   ],
   providers: [
