@@ -6,10 +6,27 @@ const merge = require('deepmerge');
 
 const dynamoDb = new AWS.DynamoDB.DocumentClient();
 
+/**
+ *
+ * @param event
+ * @param context
+ * @param callback
+ */
+
 module.exports.create = (event, context, callback) => {
     const timestamp = new Date().getTime();
     let data = null;
     try {
+        /**
+         * format should be
+         * {
+         *  attendees:[{name:"...", email:"...@...", phone_number:"..."} ]
+         *  discussion:[]
+         *  decisions:[]
+         *  actions:[{}]
+         * }
+         * @type {any}
+         */
         data = JSON.parse(event.body);
     } catch (e) {
         console.error('Validation Failed');
