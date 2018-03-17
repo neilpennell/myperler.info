@@ -2,7 +2,15 @@
 .PHONY: clean
 
 
-install: action/node_modules/.deploy action/.serverless/.deploy attendee/node_modules/.deploy attendee/.serverless/.deploy decision/node_modules/.deploy decision/.serverless/.deploy discussion/node_modules/.deploy discussion/.serverless/.deploy meeting/node_modules/.deploy meeting/.serverless/.deploy task/node_modules/.deploy task/.serverless/.deploy user/node_modules/.deploy user/.serverless/.deploy
+#install: action/node_modules/.deploy action/.serverless/.deploy attendee/node_modules/.deploy attendee/.serverless/.deploy decision/node_modules/.deploy decision/.serverless/.deploy discussion/node_modules/.deploy discussion/.serverless/.deploy meeting/node_modules/.deploy meeting/.serverless/.deploy task/node_modules/.deploy task/.serverless/.deploy user/node_modules/.deploy user/.serverless/.deploy
+
+install: packages deploy
+
+
+deploy: action/.serverless/.deploy attendee/.serverless/.deploy decision/.serverless/.deploy discussion/.serverless/.deploy meeting/.serverless/.deploy task/.serverless/.deploy user/.serverless/.deploy
+
+
+packages: action/node_modules/.deploy attendee/node_modules/.deploy decision/node_modules/.deploy discussion/node_modules/.deploy meeting/node_modules/.deploy task/node_modules/.deploy user/node_modules/.deploy
 
 
 clean:
@@ -53,7 +61,7 @@ task/.serverless/.deploy: task/serverless.yml task/create.js task/delete.js task
 user/node_modules/.deploy: user/package.json
 	$(MAKE) -C user node_modules/.deploy
 
-user/.serverless/.deploy: user/serverless.yml user/create.js user/delete.js user/get.js user/list.js user/update.js
+user/.serverless/.deploy: user/serverless.yml user/create.js
 	$(MAKE) -C user .serverless/.deploy
 
 

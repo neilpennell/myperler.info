@@ -20,10 +20,10 @@ module.exports.create = (event, context, callback) => {
         /**
          * format should be
          * {
-         *  attendees:[{name:"...", email:"...@...", phone_number:"..."} ]
-         *  discussion:[]
-         *  decisions:[]
-         *  actions:[{}]
+         *  attendees:[{name:"...", email:"...@...", phone_number:"..."}<,...> ]
+         *  discussion:[{title:"...", description:"..."}<,...>]
+         *  decisions:[{title:"...", description:"..."}<,...>]
+         *  actions:[{title:"...", description:"..." owner_id:"...", due_date:"...", tasks:[{owner_id:"...", description:"...", due_date:"...", status:[]}]}<,...>]
          * }
          * @type {any}
          */
