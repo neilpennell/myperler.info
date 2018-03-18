@@ -1,9 +1,9 @@
 import {Component, OnInit} from "@angular/core";
 import {FormControl, Validators} from '@angular/forms';
 import {Router} from "@angular/router";
-import {ChallengeParameters, CognitoCallback, LoggedInCallback} from "../../../service/cognito.service";
+import {ChallengeParameters, CognitoCallback, LoggedInCallback} from "../../../service/login-misc/cognito.service";
 import {DynamoDBService} from "../../../service/ddb.service";
-import {UserLoginService} from "../../../service/user-login.service";
+import {UserLoginService} from "../../../service/login-misc/user-login.service";
 
 @Component({
   selector: 'awscognito-angular2-app',
@@ -18,6 +18,7 @@ import {UserLoginService} from "../../../service/user-login.service";
 export class LoginComponent implements CognitoCallback, LoggedInCallback, OnInit {
   // email: string;
   // password: string;
+  showSpinner = false;
   errorMessage: string;
   mfaStep = false;
   mfaData = {

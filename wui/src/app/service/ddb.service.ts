@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {CognitoUtil} from "./cognito.service";
+import {CognitoUtil} from "./login-misc/cognito.service";
 import {environment} from "../../environments/environment";
 import * as AWS from "aws-sdk/global";
 import {HttpClient, HttpErrorResponse, HttpHeaders} from "@angular/common/http";

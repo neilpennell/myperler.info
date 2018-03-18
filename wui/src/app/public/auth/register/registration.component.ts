@@ -1,7 +1,7 @@
 import {Component} from "@angular/core";
 import {Router} from "@angular/router";
-import {UserRegistrationService} from "../../../service/user-registration.service";
-import {CognitoCallback} from "../../../service/cognito.service";
+import {UserRegistrationService} from "../../../service/login-misc/user-registration.service";
+import {CognitoCallback} from "../../../service/login-misc/cognito.service";
 
 export class RegistrationUser {
     name: string;

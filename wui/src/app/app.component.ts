@@ -1,9 +1,9 @@
 import {Component} from '@angular/core';
 import {Attendee} from "./service/model-attendee/model-attendee";
 import {Observable} from "rxjs/Observable";
-import {AwsUtil} from "./service/aws.service";
-import {UserLoginService} from "./service/user-login.service";
-import {CognitoUtil} from "./service/cognito.service";
+import {AwsUtil} from "./service/login-misc/aws.service";
+import {UserLoginService} from "./service/login-misc/user-login.service";
+import {CognitoUtil} from "./service/login-misc/cognito.service";
 import { Title } from '@angular/platform-browser';
 
 

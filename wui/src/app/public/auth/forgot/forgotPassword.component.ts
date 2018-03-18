@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from "@angular/core";
 import {ActivatedRoute, Router} from "@angular/router";
-import {UserLoginService} from "../../../service/user-login.service";
-import {CognitoCallback} from "../../../service/cognito.service";
+import {UserLoginService} from "../../../service/login-misc/user-login.service";
+import {CognitoCallback} from "../../../service/login-misc/cognito.service";
 
 @Component({
     selector: 'awscognito-angular2-app',

@@ -14,14 +14,14 @@ import {RegisterComponent} from './public/auth/register/registration.component';
 import {ResendCodeComponent} from './public/auth/resend/resendCode.component';
 import {HomeComponent, HomeLandingComponent} from './public/home.component';
 import {SecureHomeComponent} from './secure/landing/securehome.component';
-import {AwsUtil} from './service/aws.service';
-import {CognitoUtil} from './service/cognito.service';
+import {AwsUtil} from './service/login-misc/aws.service';
+import {CognitoUtil} from './service/login-misc/cognito.service';
 import {DynamoDBService} from './service/ddb.service';
 
 import {AttendeeService} from './service/model-attendee/attendee.service';
-import {UserLoginService} from './service/user-login.service';
-import {UserParametersService} from './service/user-parameters.service';
-import {UserRegistrationService} from './service/user-registration.service';
+import {UserLoginService} from './service/login-misc/user-login.service';
+import {UserParametersService} from './service/login-misc/user-parameters.service';
+import {UserRegistrationService} from './service/login-misc/user-registration.service';
 
 import {CustomMaterialModule} from './shared/custom-material/custom-material.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';

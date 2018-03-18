@@ -1,5 +1,5 @@
 import {environment} from "../../environments/environment";
-import {CognitoUtil} from "./cognito.service";
+import {CognitoUtil} from "./login-misc/cognito.service";
 import * as AWS from "aws-sdk/global";
 import * as S3 from "aws-sdk/clients/s3";
 
