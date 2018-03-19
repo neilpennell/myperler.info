@@ -3,6 +3,9 @@
 @import '~@angular/material/prebuilt-themes/indigo-pink.css';
 
 body {
-  background-image: url("/assets/images/meeting-room.jpeg");
+  background: url("/assets/images/meeting-room.jpeg") no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
   background-size: cover;
 }
