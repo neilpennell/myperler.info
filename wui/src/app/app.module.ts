@@ -27,6 +27,12 @@ import {CustomMaterialModule} from './shared/custom-material/custom-material.mod
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {DashboardComponent} from './secure/main-dashboard/dashboard/dashboard.component';
 import {StatModule} from './secure/stat/stat.module';
+import {ActionService} from "./service/model-action/action.service";
+import {DecisionService} from "./service/model-decision/decision.service";
+import {DiscussionService} from "./service/model-discussion/discussion.service";
+import {MeetingService} from "./service/model-meeting/meeting.service";
+import {TaskService} from "./service/model-task/task.service";
+import { MeetingCardComponent } from './secure/main-dashboard/meeting-card/meeting-card.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +52,9 @@ import {StatModule} from './secure/stat/stat.module';
 
     AppComponent,
 
-    DashboardComponent
+    DashboardComponent,
+
+    MeetingCardComponent
   ],
   imports: [
     BrowserModule,
@@ -65,7 +73,12 @@ import {StatModule} from './secure/stat/stat.module';
     DynamoDBService,
     UserRegistrationService,
     UserLoginService,
-    UserParametersService
+    UserParametersService,
+    ActionService,
+    DecisionService,
+    DiscussionService,
+    MeetingService,
+    TaskService
   ],
   bootstrap: [AppComponent]
 })

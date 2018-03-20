@@ -5,7 +5,8 @@
     <mat-card-content class="demo-basic-list">
       <mat-grid-list cols="3" [rowHeight]="130">
         <mat-grid-tile>
-          <app-stat [bgClass]="'primary'" [icon]="'fa-comments'" [count]="26" [label]="'Meetings'" [data]="&nbsp; &nbsp;"></app-stat>
+          <app-stat [bgClass]="'primary'" [icon]="'fa-comments'" [count]="26" [label]="'Meetings'"
+                    [data]="&nbsp; &nbsp;"></app-stat>
         </mat-grid-tile>
         <mat-grid-tile>
           <app-stat [bgClass]="'warning'" [icon]="'fa-tasks'" [count]="12" [label]="'Actions Items'"></app-stat>
@@ -18,13 +19,35 @@
   </mat-card>
 
 
+  <mat-list>
+    <h3 mat-subheader>Meetings</h3>
+    <div *ngFor="let meeting of (meetings | async)">
+      <app-meeting-card [meeting]="meeting"></app-meeting-card>
+    </div>
+  </mat-list>
+
+
+  <mat-divider></mat-divider>
+  <mat-list>
+    <h3 mat-subheader>Actions</h3>
+    <!--<ul style="list-style-type:none">-->
+  <!--<li>-->
+      <mat-card>
+        <mat-card-title>Title</mat-card-title>
+        <mat-card-content>Content</mat-card-content>
+      </mat-card>
+  <!--</li>-->
+    <!--</ul>-->
+  </mat-list>
+
+  <!--
   <mat-card id="meetings">
     <mat-card-title>Meetings</mat-card-title>
   </mat-card>
   <mat-card id="actions">
     <mat-card-title>Actions</mat-card-title>
   </mat-card>
-
+  -->
 
 </div>
 

@@ -1,4 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {Observable} from "rxjs/Observable";
+
+import {MeetingService} from "../../../service/model-meeting/meeting.service";
+import {Meeting} from "../../../service/model-meeting/model-meeting";
+import {MeetingCardComponent} from "../meeting-card/meeting-card.component";
 
 @Component({
   selector: 'app-dashboard',
@@ -7,9 +12,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor() { }
+  meetings: Observable<Meeting[]>
+
+  constructor(private meetinService: MeetingService) {
+  }
 
   ngOnInit() {
+    this.meetings = this.meetinService.getMeetings();
   }
 
 }

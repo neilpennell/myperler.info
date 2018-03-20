@@ -25,8 +25,5 @@ export class Meeting {
   attendees : Attendee[];
   discussions: Discussion[];
   decisions: Decision[];
-
   actions: Action[];
-
-
 }
