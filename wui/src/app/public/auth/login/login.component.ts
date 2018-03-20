@@ -29,14 +29,14 @@ export class LoginComponent implements CognitoCallback, LoggedInCallback, OnInit
 
   emailFormControl = new FormControl('', [
     Validators.required,
-    Validators.email,
+    Validators.email
   ]);
   // minLength - 8
   // one Upper Case
   // one Lowwer case
   passwordFormControl = new FormControl('', [
     Validators.required,
-    Validators.minLength(8),
+    Validators.minLength(8)
   ]);
 
   constructor(public router: Router,
