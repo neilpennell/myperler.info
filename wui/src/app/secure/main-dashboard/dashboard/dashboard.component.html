@@ -5,7 +5,7 @@
     <mat-card-content class="demo-basic-list">
       <mat-grid-list cols="3" [rowHeight]="130">
         <mat-grid-tile>
-          <app-stat [bgClass]="'primary'" [icon]="'fa-comments'" [count]="26" [label]="'Meetings'"
+          <app-stat [bgClass]="'primary'" [icon]="'fa-comments'" [count]=(count|async) [label]="'Meetings'"
                     [data]="&nbsp; &nbsp;"></app-stat>
         </mat-grid-tile>
         <mat-grid-tile>

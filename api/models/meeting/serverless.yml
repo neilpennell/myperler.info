@@ -75,6 +75,24 @@ functions:
               - X-Api-Key
               - X-Amz-Security-Token
 
+  count:
+    handler: count.count
+    events:
+      - http:
+          path: ${self:provider.environment.BASE_URL}/count
+          method: get
+          private: true # Requires clients to add API keys values in the `x-api-key` header of their request
+          cors:
+            origins:
+              - '*'
+            headers:
+              - X-Amz-User-Agent
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+
   get:
     handler: get.get
     events:

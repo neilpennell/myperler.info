@@ -19,4 +19,17 @@ export class MeetingService {
 
     return this.http.get<Meeting[]>(environment.meeting_endpoint, httpOptions);
   }
+
+  getMeetingCount(): Observable<number> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'X-Api-Key': environment.apiKey_meetings
+      })
+    };
+
+    let obj : any
+    obj = this.http.get<number>(environment.meeting_endpoint+'/count', httpOptions);
+    return obj
+  }
 }

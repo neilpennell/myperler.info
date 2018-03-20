@@ -28,7 +28,9 @@ module.exports.list = (event, context, callback) => {
     const response = {
       statusCode: 200,
       headers: {
-        'Access-Control-Allow-Origin': '*'
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Credentials' : true // Required for cookies, authorization headers with HTTPS
       },
       body: JSON.stringify(result.Items),
     };

@@ -3,7 +3,6 @@ import {Observable} from "rxjs/Observable";
 
 import {MeetingService} from "../../../service/model-meeting/meeting.service";
 import {Meeting} from "../../../service/model-meeting/model-meeting";
-import {MeetingCardComponent} from "../meeting-card/meeting-card.component";
 
 @Component({
   selector: 'app-dashboard',
@@ -12,13 +11,15 @@ import {MeetingCardComponent} from "../meeting-card/meeting-card.component";
 })
 export class DashboardComponent implements OnInit {
 
-  meetings: Observable<Meeting[]>
+  meetings: Observable<Meeting[]>;
+  count: Observable<number>;
 
-  constructor(private meetinService: MeetingService) {
+  constructor(public meetinService: MeetingService) {
   }
 
   ngOnInit() {
     this.meetings = this.meetinService.getMeetings();
+    this.count = this.meetinService.getMeetingCount();
   }
 
 }
