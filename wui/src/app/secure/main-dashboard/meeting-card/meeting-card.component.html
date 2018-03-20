@@ -1,0 +1,37 @@
+<div class="meeting-container">
+  <mat-card class="meeting-card">
+    <mat-card-title>{{ meeting.title }}</mat-card-title>
+    <mat-card-subtitle>{{ meeting.description}}</mat-card-subtitle>
+    <mat-card-content>
+      <mat-list>
+        <h3 matSubheader>Attendees</h3>
+        <mat-list-item *ngFor="let attendee of meeting.attendees">
+          <mat-icon matListIcon>person</mat-icon>
+          <h4 matLine>{{attendee.name}}</h4>
+          <p matLine>{{attendee.email}} </p>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+        <h3 matSubheader>Discussion</h3>
+        <mat-list-item *ngFor="let discussion of meeting.discussions">
+          <mat-icon matListIcon>speaker_notes</mat-icon>
+          <h4 matLine>{{discussion.title}}</h4>
+          <p matLine>{{discussion.description}} </p>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+        <h3 matSubheader>Decision</h3>
+        <mat-list-item *ngFor="let decision of meeting.decisions">
+          <mat-icon matListIcon>change_history</mat-icon>
+          <h4 matLine>{{decision.title}}</h4>
+          <p matLine>{{decision.description}} </p>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+        <h3 matSubheader>Actions</h3>
+        <mat-list-item *ngFor="let action of meeting.actions">
+          <mat-icon matListIcon>assignment</mat-icon>
+          <h4 matLine>{{action.due_date}} - {{action.title}}</h4>
+          <p matLine>{{action.description}} </p>
+        </mat-list-item>
+      </mat-list>
+    </mat-card-content>
+  </mat-card>
+</div>
