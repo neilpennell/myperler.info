@@ -6,12 +6,12 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
-    "aws-sdk": "^2.192.0",
-    "deepmerge": "^2.0.1",
-    "uuid": "^3.2.1"
+    "aws-sdk": "^2.656.0",
+    "deepmerge": "^2.2.1",
+    "uuid": "^3.4.0"
   },
   "devDependencies": {
-    "serverless-domain-manager": "^2.3.0",
+    "serverless-domain-manager": "^2.6.13",
     "serverless-sam": "^0.0.4"
   }
 }

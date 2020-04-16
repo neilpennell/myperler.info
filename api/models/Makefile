@@ -12,15 +12,14 @@ deploy: action/.serverless/.deploy attendee/.serverless/.deploy decision/.server
 
 packages: action/node_modules/.deploy attendee/node_modules/.deploy decision/node_modules/.deploy discussion/node_modules/.deploy meeting/node_modules/.deploy task/node_modules/.deploy user/node_modules/.deploy
 
-
 clean:
-	rm -rf action/node_modules
-	rm -rf attendee/node_modules
-	rm -rf decision/node_modules
-	rm -rf discussion/node_modules
-	rm -rf meeting/node_modules
-	rm -rf task/node_modules
-	rm -rf user/node_modules
+	rm -rf action/node_modules action/package-lock.json
+	rm -rf attendee/node_modules attendee/package-lock.json
+	rm -rf decision/node_modules decision/package-lock.json
+	rm -rf discussion/node_modules discussion/package-lock.json
+	rm -rf meeting/node_modules meeting/package-lock.json
+	rm -rf task/node_modules task/package-lock.json
+	rm -rf user/node_modules user/package-lock.json
 
 action/node_modules/.deploy: action/package.json
 	$(MAKE) -C action node_modules/.deploy
